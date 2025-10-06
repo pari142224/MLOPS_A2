@@ -1,19 +1,26 @@
-import warnings
- warnings.filterwarnings("ignore")
- from sklearn.tree import DecisionTreeRegressor
- from misc import load_data, prepare_xy, split_data, train_model, evaluate_model, cross_val_mse,
-save_model
- def main():
- df = load_data()
- X, y = prepare_xy(df)
- X_train, X_test, y_train, y_test = split_data(X, y)
- model = DecisionTreeRegressor(random_state=42)
- model = train_model(model, X_train, y_train)
- test_mse = evaluate_model(model, X_test, y_test)
- cv_mse = cross_val_mse(DecisionTreeRegressor(random_state=42), X, y)
- print("DecisionTreeRegressor")
- print(test_mse)
- print(cv_mse)
- save_model(model, "dtree_model.joblib")
- if __name__ == "__main__":
- main()
+# Inside train.py
+from sklearn.tree import DecisionTreeRegressor
+# Import from the file containing load_data (e.g., data.py or misc.py)
+# Assuming load_data is in data.py for this example
+from data import load_data 
+from misc import split_data, preprocess_data, train_model, evaluate_model
+
+if __name__ == "__main__":
+    # 1. Data Loading
+    df = load_data()
+
+    # 2. Data Splitting
+    X_train, X_test, y_train, y_test = split_data(df)
+
+    # 3. Data Preprocessing (Scaling)
+    X_train_scaled, X_test_scaled = preprocess_data(X_train, X_test)
+
+    # 4. Model Training
+    dt_model = DecisionTreeRegressor(random_state=42)
+    trained_dt_model = train_model(dt_model, X_train_scaled, y_train)
+
+    # 5. Model Evaluation
+    mse = evaluate_model(trained_dt_model, X_test_scaled, y_test)
+
+    # Display result
+    print(f"Decision Tree Regressor - Average MSE on Test Set: {mse:.4f}") # [cite: 20]
