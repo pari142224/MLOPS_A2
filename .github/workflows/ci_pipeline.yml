@@ -1,0 +1,30 @@
+# Inside .github/workflows/ci_pipeline.yml
+name: ML Workflow CI
+
+on:
+  push:
+    branches:
+      - [cite_start]kernelridge # Trigger on push to this branch [cite: 26]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        [cite_start]uses: actions/checkout@v4 # [cite: 26]
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # [cite: 26]
+
+      - name: Test Decision Tree Model (train.py)
+        [cite_start]run: python train.py # [cite: 30]
+
+      - name: Test Kernel Ridge Model (train2.py)
+        [cite_start]run: python train2.py # [cite: 30]
