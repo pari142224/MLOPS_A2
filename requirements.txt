@@ -1,0 +1,4 @@
+# Inside requirements.txt
+scikit-learn
+pandas
+numpy
