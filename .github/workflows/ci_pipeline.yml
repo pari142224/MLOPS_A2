@@ -4,7 +4,7 @@ name: ML Workflow CI
 on:
   push:
     branches:
-      - [cite_start]kernelridge # Trigger on push to this branch [cite: 26]
+      - kernelridge
 
 jobs:
   build-and-test:
@@ -27,4 +27,4 @@ jobs:
         [cite_start]run: python train.py # [cite: 30]
 
       - name: Test Kernel Ridge Model (train2.py)
-        [cite_start]run: python train2.py # [cite: 30]
+        [cite_start]run: python train2.py # [ci
